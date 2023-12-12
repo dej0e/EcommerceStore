@@ -95,22 +95,31 @@ Home
     <h1>All Products</h1>
   </div>
 
-  <!-- Products Grid -->
+  <!-- This div acts as a container for the products grid. -->
   <div class="products-grid">
-    {% for product in products %}
-      <div class="product-card">
-        <div class="product-image">
-          <a href="{{ product.get_url }}">
-            <img src="{{ product.image.url }}" alt="{{ product.name }}">
-          </a>
+      <!-- Django template for loop to iterate over each product in the 'products' context variable. -->
+      {% for product in products %}
+        <!-- Each product is wrapped in a 'product-card' div which may include styling specific to a product card. -->
+        <div class="product-card">
+          <!-- Product image section -->
+          <div class="product-image">
+            <!-- Link to the product detail page. The 'href' attribute uses Django's template language to dynamically generate the URL. -->
+            <a href="{{ product.get_url }}">
+              <!-- The product image. 'src' is dynamically set to the URL of the product's image. 'alt' attribute provides an alternative text which describes the product. -->
+              <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            </a>
+          </div>
+          <!-- Product footer section containing name and price -->
+          <div class="product-footer">
+            <!-- Product name. Displayed using the product's 'name' attribute. -->
+            <p class="product-name">{{ product.name }}</p>
+            <!-- Product price. The price is prefixed with a dollar sign. -->
+            <h5 class="product-price"><span>$</span>{{ product.price }}</h5>
+          </div>
         </div>
-        <div class="product-footer">
-          <p class="product-name">{{ product.name }}</p>
-          <h5 class="product-price"><span>$</span>{{ product.price }}</h5>
-        </div>
-      </div>
-    {% endfor %}
+      {% endfor %}
   </div>
+
 
   <!-- Pagination -->
   <div class="pagination">

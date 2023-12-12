@@ -7,14 +7,26 @@
   <ul class="navbar-nav">
     <li class="nav-item dropdown"><a class="nav-link text-light text-uppercase font-weight-bold px-3 dropdown-toggle"
       href="" data-toggle="dropdown">Categories</a>
+      <!-- This 'div' defines a dropdown menu container with class 'dropdown-menu'. -->
       <div class="dropdown-menu">
-        <a class="dropdown-item" href="{% url 'home' %}">All Products</a>
-        {% for category in links %}
-        <a class="dropdown-item" href="{{category.get_url}}">{{category.name}}</a>
-        {% endfor %}
+          <!-- This 'a' tag represents a link to the 'home' page. -->
+          <!-- The '{% url 'home' %}' is a Django template tag that dynamically generates the URL for the 'home' view. -->
+          <a class="dropdown-item" href="{% url 'home' %}">All Products</a>
 
+          <!-- Beginning of a Django template 'for' loop that iterates over each item in 'links'. -->
+          <!-- 'links' is expected to be a context variable passed to the template containing category data. -->
+          {% for category in links %}
+              <!-- For each category, create a link with class 'dropdown-item'. -->
+              <!-- 'href' attribute is dynamically set to the URL of the category's detail page. -->
+              <!-- This URL is obtained by calling the 'get_url' method on each category object. -->
+              <!-- The displayed text for each link is the name of the category. -->
+              <a class="dropdown-item" href="{{ category.get_url }}">{{ category.name }}</a>
+          {% endfor %}
+          <!-- End of the 'for' loop. -->
       </div>
+
     </li>
+    <!-- Django template 'if' condition checks if the user is authenticated and has a first name. -->
     {% if request.user.is_authenticated and request.user.first_name %}
       <li class="nav-item dropdown">
         <a class="nav-link text-light text-uppercase font-weight-bold px-3 dropdown-toggle" data-toggle="dropdown">
@@ -42,6 +54,7 @@
         </a>
       </li>
     {% endif %}
+      <!-- End Logic -->
 
     {% if item_count > 0 %}
     <li class="nav-item">

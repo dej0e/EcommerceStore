@@ -1,29 +1,9 @@
-body {
+body,html {
   background: #f3f3f3;
   font-family: 'Roboto', sans-serif;
   color: #333;
   line-height: 1.6;
-}
-
-.product_title {
-  font-size: 24px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-top: 15px;
-  margin-bottom: 10px;
-  color: #007bff;
-}
-
-.product_text {
-  margin-right: 20px;
-  color: #555;
-}
-
-.product_description {
-  font-size: 18px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: #6c757d;
+  height: 100%;
 }
 
 .errorlist li {
@@ -33,5 +13,5 @@ body {
 }
 
 .custom_div {
-  margin-bottom: 20px; 
+  margin-bottom: 20px;
 }
