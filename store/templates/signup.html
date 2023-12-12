@@ -6,45 +6,72 @@ Create a New Account
 {% endblock %}
 
 {% block content %}
+  <style>
+    main {
+      text-align: center;
+      padding: 20px;
+    }
+    section {
+      margin: auto;
+      max-width: 600px;
+    }
+    section h1 {
+      font-size: 2em;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    article {
+      background-color: #f8f9fa;
+      padding: 20px;
+    }
+    form {
+      margin-top: 10px;
+    }
+    button {
+      background-color: #6c757d;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    a {
+      text-decoration: none;
+      color: #007bff;
+    }
+  </style>
 
-  <div>
+  <main>
     {% if not form.is_valid %}
-      <div class="mx-auto">
-        <br>
-        <h1 class="product_title text-center">
-          Create a new account
+      <section>
+        <h1>
+          Create a New Account
         </h1>
-        <br>
-        <div class="col-9 col-sm-9 col-md-6 col-lg-5 mx-auto bg-light">
-          <br>
-          <p>Enter the following information to create a new account</p>
+        <article>
+          <p>Fill in the following information to create your new account:</p>
           <form method="post">
             {% csrf_token %}
-            <p>{{ form | crispy }}</p>
-            <button type="submit" name="button" class="btn btn-secondary">Sign Up</button>
+            {{ form | crispy }}
+            <button type="submit" name="button">
+              Sign Up
+            </button>
           </form>
-          <br>
-        </div>
-      </div>
+        </article>
+      </section>
     {% else %}
-      <div class="mx-auto">
-        <br>
-        <h1 class="product_title text-center">
-          Your account has been successfully created
+      <section>
+        <h1>
+          Your Account Has Been Successfully Created
         </h1>
-        <br>
-        <div class="container">
-            <p>
-              Dear Customer,
-              <br>
-              <br>
-              Your account has been created and it is ready to use.
-              <br>
-              <a href="{% url 'home' %}">Continue shopping</a> and enjoy the variety of products that we have at the Z-Store.
-            </p>
+        <div>
+          <p>
+            Dear Customer,<br><br>
+            Your account is now ready for use. <br>
+            <a href="{% url 'home' %}">Continue shopping</a> and explore the variety of products we have at Z-Store.
+          </p>
         </div>
-      </div>
-
+      </section>
     {% endif %}
-  </div>
+  </main>
 {% endblock %}

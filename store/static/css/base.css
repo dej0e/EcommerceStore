@@ -1,30 +1,37 @@
 body {
   background: #f3f3f3;
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+  line-height: 1.6;
 }
 
 .product_title {
-  font-size: 20px;
+  font-size: 24px;
   text-transform: uppercase;
-  letter-spacing: .2em;
-  padding-top: 15px;
-  padding-bottom: 10px;
+  letter-spacing: 0.1em;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  color: #007bff;
 }
 
 .product_text {
-  padding-right: 20px;
+  margin-right: 20px;
+  color: #555;
 }
 
 .product_description {
-  font-size: 16px;
+  font-size: 18px;
   text-transform: uppercase;
-  letter-spacing: .2em;
+  letter-spacing: 0.1em;
+  color: #6c757d;
 }
 
 .errorlist li {
-  color: red;
+  color: #dc3545;
   font-weight: bold;
+  margin-bottom: 5px;
 }
 
 .custom_div {
-  margin-bottom: 20px !important;
+  margin-bottom: 20px; 
 }

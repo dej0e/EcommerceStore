@@ -108,3 +108,6 @@ STRIPE_SECRET_KEY = 'sk_test_51OJeLnIQcgxBnKzpHd5Ae8Q8eYT4TS3yElOxstRDXrOENkR12b
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+import django_on_heroku
+django_on_heroku.settings(locals())

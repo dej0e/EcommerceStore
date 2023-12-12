@@ -3,74 +3,99 @@
 {% block title %}
 Order Details
 {% endblock %}
-{% block content %}
-    <div class="container">
 
-    <div class="text-center">
-      <br>
-      <h1 class="text-center product_title">
-        Order Details
-      </h1>
-      <br>
-      <table class="table table-bordered">
-        <tr>
-          <td class="text-left" colspan="2">
-            <b>Order:</b> #{{ order.id }} <br>
-            <b>Date: </b>{{ order.created|date:"d M Y" }} <br>
-            <b>Order Total:</b>${{ order.total }} <br>
-            <b>Order Status:</b><i class="fas fa-check"></i> Complete.
-          </td>
-          <td class="text-left" colspan="2">
-            <b>Billing Address: </b> <br>
-            {{ order.billingName }} <br>
-            {{ order.billingAddress1 }} <br>
-            {{ order.billingCity }} <br>
-            {{ order.billingPostcode }} <br>
-            {{ order.billingCountry }} <br>
-          </td>
-        </tr>
-        <tr>
-          <td><b>Product Description</b></td>
-          <td><b>Qty</b></td>
-          <td><b>Unit Price</b></td>
-          <td><b>Sub-Total</b></td>
-        </tr>
+{% block content %}
+  <style>
+    .container {
+      width: 100%;
+      padding: 20px;
+    }
+    .text-center {
+      text-align: center;
+    }
+    .title {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 20px 0;
+    }
+    .info-section {
+      margin-bottom: 20px;
+    }
+    .order-details, .billing-details, .shipping-details, .payment-details {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    .order-details div, .billing-details div, .shipping-details div, .payment-details div {
+      flex-basis: 48%;
+      margin-bottom: 10px;
+    }
+    .order-items {
+      border-top: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
+    }
+    .order-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+    }
+    .total, .total-paid {
+      font-weight: bold;
+      text-align: right;
+      padding: 10px 0;
+    }
+    .print-button {
+      background-color: #6c757d;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      display: inline-block;
+      margin-top: 20px;
+    }
+  </style>
+
+  <main class="container">
+    <section class="text-center">
+      <h1 class="title">Order Details</h1>
+
+      <article class="info-section">
+        <div class="order-details">
+          <div><strong>Order:</strong> #{{ order.id }}</div>
+          <div><strong>Date:</strong> {{ order.created|date:"d M Y" }}</div>
+          <div><strong>Order Total:</strong> ${{ order.total }}</div>
+          <div><strong>Order Status:</strong> Complete</div>
+        </div>
+
+        <div class="billing-details">
+          <div><strong>Billing Address:</strong><br>{{ order.billingName }}<br>{{ order.billingAddress1 }}<br>{{ order.billingCity }}<br>{{ order.billingPostcode }}<br>{{ order.billingCountry }}</div>
+          <div><strong>Payment Details:</strong><br>The order #{{ order.id }} has been paid successfully.</div>
+        </div>
+
+        <div class="shipping-details">
+          <div><strong>Shipping Address:</strong><br>{{ order.shippingName }}<br>{{ order.shippingAddress1 }}<br>{{ order.shippingCity }}<br>{{ order.shippingPostcode }}<br>{{ order.shippingCountry }}</div>
+        </div>
+      </article>
+
+      <article class="order-items info-section">
         {% for item in order_items %}
-          <tr>
-            <td>{{ item.product }}</td>
-            <td>{{ item.quantity }}</td>
-            <td>${{ item.price }}</td>
-            <td>${{ item.sub_total }}</td>
-          </tr>
+          <div class="order-item">
+            <span>{{ item.product }}</span>
+            <span>Qty: {{ item.quantity }}</span>
+            <span>Unit Price: ${{ item.price }}</span>
+            <span>Sub-Total: ${{ item.sub_total }}</span>
+          </div>
         {% endfor %}
-        <tr>
-          <td class="text-right" colspan="3"><b>Total</b></td>
-          <td>${{ order.total }}</td>
-        </tr>
-        <tr>
-          <td class="text-right" colspan="3"><b>Total Paid</b></td>
-          <td>${{ order.total }}</td>
-        </tr>
-        <tr>
-          <td class="text-left" colspan="2">
-            <b>Shipping Address:</b> <br>
-            {{ order.shippingName }} <br>
-            {{ order.shippingAddress1 }} <br>
-            {{ order.shippingCity }} <br>
-            {{ order.shippingPostcode }} <br>
-            {{ order.shippingCountry }} <br>
-          </td>
-          <td class="text-left" colspan="2">
-            <b>Paymebt Details:</b> <br>
-            The order #{{ order.id }} has been paid successfully
-          </td>
-        </tr>
-      </table>
-      <button class="btn btn-secondary" onclick="window.print();">
-        <i class="fas fa-print"></i>
-        Print Order
-      </button>
-    </div>
-  </div>
-    <br><br>
+      </article>
+
+      <footer>
+        <div class="total">Total: ${{ order.total }}</div>
+        <div class="total-paid">Total Paid: ${{ order.total }}</div>
+        <button class="print-button" onclick="window.print();">
+          <i class="fas fa-print"></i> Print Order
+        </button>
+      </footer>
+    </section>
+  </main>
 {% endblock %}

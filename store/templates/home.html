@@ -5,59 +5,123 @@ Home
 {% endblock %}
 
 {% block content %}
-  <div class="container-fluid">
-    <div class="row">
-      <img style="width: 100%" src="{% static 'img/image.jpeg' %}" alt="">
-    </div>
-  </div>
-  <div class="py-4">
-    <div class="container">
-      <div class="row">
-        <div class="col-10 mx-auto my-2 text-center">
-          <h1 class="text-captitalze font-weight-bold">
-            All Products
-          </h1>
-        </div>
-      </div>
-    </div>
+<style>
+  .container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+  }
+  .image-banner img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+  .title-section {
+    text-align: center;
+    margin: 40px 0;
+    color: #333;
+  }
+  .title-section h1 {
+    font-size: 30px;
+    font-weight: bold;
+    color: #007bff;
+  }
+  .products-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  .product-card {
+    margin: 15px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 250px;
+  }
+  .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  }
+  .product-image img {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #ddd;
+  }
+  .product-footer {
+    display: flex;
+    justify-content: space-between;
+    background: #f9f9f9;
+    padding: 10px;
+    align-items: center;
+  }
+  .product-name {
+    font-weight: bold;
+    color: #333;
+  }
+  .product-price {
+    color: #28a745;
+    font-style: normal;
+    font-weight: bold;
+  }
+  .pagination {
+    text-align: center;
+    margin: 20px 0;
+  }
+  .page-link {
+    display: inline-block;
+    margin: 5px;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  .page-link:hover, .active {
+    background-color: #0056b3;
+  }
+</style>
+
+<div class="container">
+  <!-- Banner Image -->
+  <div class="image-banner">
+    <img src="{% static 'img/image.jpeg' %}" alt="">
   </div>
 
-  <div class="container">
-    <div class="row">
-      {% for product in products %}
-      <div class="col-9 mx-auto col-md-6 col-lg-3">
-        <div class="card mb-4" style="border-color: transparent;">
-          <div class="p-4">
-            <a href="{{product.get_url}}">
-              <img src="{{product.image.url}}" class="card-img-top" alt="{{product.name}}">
-            </a>
+  <!-- Title Section -->
+  <div class="title-section">
+    <h1>All Products</h1>
+  </div>
 
-          </div>
-          <div class="card-footer d-flex justify-content-between"
-          style="background: transparent; border-color: transparent;">
-            <p class="font-weight-bold mb-0">
-              {{product.name}}
-            </p>
-            <h5 class="text-info font-italic mb-0">
-              <span class="mr-1">$</span> {{product.price}}
-            </h5>
-          </div>
+  <!-- Products Grid -->
+  <div class="products-grid">
+    {% for product in products %}
+      <div class="product-card">
+        <div class="product-image">
+          <a href="{{ product.get_url }}">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+          </a>
+        </div>
+        <div class="product-footer">
+          <p class="product-name">{{ product.name }}</p>
+          <h5 class="product-price"><span>$</span>{{ product.price }}</h5>
         </div>
       </div>
+    {% endfor %}
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination">
+    {% if products.paginator.num_pages > 1 %}
+      {% for page_number in products.paginator.page_range %}
+        <a href="?page={{ page_number }}" class="page-link {% if products.number == page_number %}active{% endif %}">
+          {{ page_number }}
+        </a>
       {% endfor %}
-    </div>
-    <div class="col-10 mx-auto my-2 text-center">
-      {% if products.paginator.num_pages > 1 %}
-          {% for page_number in products.paginator.page_range %}
-              <a href="?page={{page_number}}"
-               class="btn btn-light btn-sm {% if products.number == page_number %}active{% endif %}">
-               {{page_number}}</a>
-          {% endfor %}
-      {% endif %}
-    </div>
-    <br>
+    {% endif %}
   </div>
-
-
+</div>
 
 {% endblock %}

@@ -5,65 +5,143 @@ Product
 {% endblock %}
 
 {% block content %}
-<div class="container py-5">
-  <div class="row mt-5">
-    <div class="col-10 mx-auto col-md-6 my-3">
-      <img src="{{product.image.url}}" alt="">
-    </div>
-    <div class="col-10 mx-auto col-md-6 my-3">
+  <style>
+    main {
+      padding: 40px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      width: 80%;
+      max-width: 1200px;
+      margin: auto;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 20px;
+      border-radius: 10px;
+      background-color: #fff;
+    }
+    section div {
+      flex: 1;
+      max-width: calc(50% - 30px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 15px;
+    }
+    section div img {
+      width: 100%;
+      height: auto;
+      border-radius: 5px;
+    }
+    section h1, section h5 {
+      color: #333;
+      text-align: center;
+    }
+    section h1 {
+      font-size: 2em;
+      margin-top: 15px;
+    }
+    section h5 {
+      font-style: italic;
+      margin: 15px 0;
+    }
+    .product-description {
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .text-justify {
+      text-align: justify;
+      margin: 10px;
+    }
+    .button-style {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 10px;
+    }
+    article {
+      margin-top: 40px;
+      width: 80%;
+      max-width: 800px;
+    }
+    article h4 {
+      font-size: 1.5em;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    article ul {
+      list-style: none;
+      padding: 0;
+    }
+    article ul li {
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+    }
+    .post-button {
+      background-color: #28a745;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      display: inline-block;
+      margin-top: 10px;
+    }
+  </style>
+
+  <main>
+    <!-- Product Section -->
+    <section>
       <div>
-        <h1 class="product_title">{{product.name}}</h1>
-        <h5 class="text-info font-italic mb-3">
-          <span class="mr-1">$</span> {{product.price}}
-        </h5>
-        <p class="product_description">Product Description</p>
-        <p class="text-justify product_text">{{product.description}}</p>
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+      </div>
+      <div>
+        <h1>{{ product.name }}</h1>
+        <h5><span>$</span>{{ product.price }}</h5>
+        <p class="product-description">Product Description</p>
+        <p class="text-justify">{{ product.description }}</p>
         {% if product.stock <= 0 %}
-        <p class="text-justify product_text"><b>Out of Stock</b></p>
+          <p class="text-justify"><strong>Out of Stock</strong></p>
         {% else %}
-        <a href="{% url 'add_cart' product.id %}">
-          <button type="button" name="button" class="btn btn-secondary">
+          <a href="{% url 'add_cart' product.id %}" class="button-style">
             Add to Cart
-          </button>
           </a>
         {% endif %}
       </div>
-    </div>
-  </div>
+    </section>
 
-  <div class="card">
-  <div class="card-header">
-    <h4>Reviews</h4>
-  </div>
-  {% if user.is_authenticated %}
-  <div class="card-body">
-    <form method="post">
-      {% csrf_token %}
-      <div class="form-group">
-        <textarea name="content" class="form-control"></textarea>
-      </div>
-      <div class="form-group">
-      <button type="submit" class="btn btn-success">Post</button>
-      </div>
-    </form>
-  </div>
-  {% endif %}
+    <!-- Reviews Section -->
+    <article>
+      <h4>Reviews</h4>
+      {% if user.is_authenticated %}
+        <form method="post">
+          {% csrf_token %}
+          <textarea name="content" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc;"></textarea>
+          <button type="submit" class="post-button">Post</button>
+        </form>
+      {% endif %}
 
-  {% if reviews.count > 0 %}
-  <ul class="list-group list-group-flush">
-   {% for review in reviews %}
-       <li class="list-group-item"> <h5>{{review.user.username}}</h5>
-       <p class="card-text">{{review.content}}</p>
-       </li>
-   {% endfor %}
- </ul>
-
-  {% endif %}
-
-
-</div>
-
-</div>
-
-
+      {% if reviews.count > 0 %}
+        <ul>
+          {% for review in reviews %}
+            <li>
+              <h5>{{ review.user.username }}</h5>
+              <p>{{ review.content }}</p>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </article>
+  </main>
 {% endblock %}

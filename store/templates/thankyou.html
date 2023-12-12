@@ -5,18 +5,34 @@ Z-Store
 {% endblock %}
 
 {% block content %}
-  <div class="text-center">
-    <br>
-    <br>
-    <h1 class="text-center product_title">
-      Thanks for placing your order
-    </h1>
-    <br>
-    <br>
-    <p>Your order number is: <b>{{ customer_order.id }}</b></p>
-    <br>
-    <p>
-      We have received your order and will begin processing right away.
-    </p>
-  </div>
+  <style>
+    section {
+      text-align: center;
+      padding: 20px;
+    }
+    header h1 {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    article p {
+      font-size: 16px;
+    }
+  </style>
+
+  <section>
+    <header>
+      <h1>
+        Thank You for Placing Your Order
+      </h1>
+    </header>
+
+    <article>
+      <p>
+        Your order number is: <strong>{{ customer_order.id }}</strong>
+      </p>
+      <p>
+        We have successfully received your order and are initiating the processing immediately.
+      </p>
+    </article>
+  </section>
 {% endblock %}
